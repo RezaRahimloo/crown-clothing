@@ -1,10 +1,13 @@
+
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { 
     getAuth, 
     signInWithRedirect, 
     signInWithPopup, 
-    GoogleAuthProvider
+    GoogleAuthProvider,
+    createUserWithEmailAndPassword
 } from 'firebase/auth'
 
 import {
@@ -27,18 +30,25 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
     prompt: "select_account"
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
+export const singInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore(); //singleton instance
 
-export const createUserDocumentFromAuth = async (userAuth) => {//userAuth is the user object returned by google
+export const createUserDocumentFromAuth = async (
+  userAuth, 
+  additionalInformation = {}) => {//userAuth is the user object returned by google
+  if(!userAuth){
+    return;
+  }
+
   const userDocRef = doc(db, "users", userAuth.uid);//the database, the collection, the id of the row
   console.log(userDocRef);
 
@@ -54,7 +64,8 @@ export const createUserDocumentFromAuth = async (userAuth) => {//userAuth is the
       await setDoc(userDocRef, {
         displayName,
         email,
-        createdAt
+        createdAt,
+        ...additionalInformation
       })
     } catch (error) {
       console.log("error creating user", error.message);
@@ -63,3 +74,11 @@ export const createUserDocumentFromAuth = async (userAuth) => {//userAuth is the
 
   return userDocRef;
 }
+
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if(!email || !password){
+    return;
+  }
+  return (await createUserWithEmailAndPassword(auth, email, password));
+} 
