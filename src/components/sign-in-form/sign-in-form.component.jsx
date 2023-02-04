@@ -25,15 +25,16 @@ const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
-    const { setCurrentUser } = useContext(UserContext);
+    //const { setCurrentUser } = useContext(UserContext);
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
     }
 
     const signInWithGoole = async () => {
-        const { user } = await signInWithGooglePopup();
-        await createUserDocumentFromAuth(user);
+        await signInWithGooglePopup();
+        //setCurrentUser(user);
+        
         //console.log(user);
     }
 
@@ -42,7 +43,7 @@ const SignInForm = () => {
 
         try{
             const { user } = await signInAuthUserWithEmailAndPassword(email, password); 
-            setCurrentUser(user)
+            //setCurrentUser(user)
             resetFormFields();
 
         } catch(error){
@@ -97,7 +98,7 @@ const SignInForm = () => {
                     <Button type="submit">
                         Sign In
                     </Button>
-                    <Button type="button" buttonType="google" onClick={signInWithGooglePopup}>
+                    <Button type="button" buttonType="google" onClick={signInWithGoole}>
                         Google Sign In
                     </Button>
                 </div>
