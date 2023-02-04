@@ -89,7 +89,7 @@ const SignInForm = () => {
                     required 
                     onChange={handleChange} name="password" 
                     value={password}/>
-                <div className='button-container'>
+                <div className='button-wrapper'>
                     <Button type="submit">
                         Sign In
                     </Button>
