@@ -13,7 +13,7 @@ import {
 } from '../../utils/firebase/firebase.utils'
 
 import FormInput from "../form-input/form-input.component";
-import Button from '../button/button.component';
+import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 
 const defaultFormFields = {
     email: '',
@@ -72,7 +72,7 @@ const SignInForm = () => {
         setFormFields({...formFields, [name]: value});
     }
 
-
+    console.log("here",BUTTON_TYPE_CLASSES.google);
     return (
         <div className="sign-up-container">
             <h2>Don't have an account?</h2>
@@ -98,7 +98,7 @@ const SignInForm = () => {
                     <Button type="submit">
                         Sign In
                     </Button>
-                    <Button type="button" buttonType="google" onClick={signInWithGoole}>
+                    <Button type="button" buttonType={BUTTON_TYPE_CLASSES.google} onClick={signInWithGoole}>
                         Google Sign In
                     </Button>
                 </div>
