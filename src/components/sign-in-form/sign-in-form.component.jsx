@@ -25,6 +25,7 @@ const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
+
     //const { setCurrentUser } = useContext(UserContext);
 
     const resetFormFields = () => {
@@ -57,7 +58,6 @@ const SignInForm = () => {
                     break;
             
                 default:
-                    console.log(error);
                     break;
             }
             
@@ -72,7 +72,6 @@ const SignInForm = () => {
         setFormFields({...formFields, [name]: value});
     }
 
-    console.log("here",BUTTON_TYPE_CLASSES.google);
     return (
         <div className="sign-up-container">
             <h2>Don't have an account?</h2>

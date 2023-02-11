@@ -7,8 +7,7 @@ import { CategoriesContext } from '../../contexts/categories.context';
 import ProductCard from '../../components/product-card/product-card.component';
 
 const Category = () => {
-    console.log("category mount")
-    console.log(useParams());
+
     const { category } = useParams();
     const { categoriesMap } = useContext(CategoriesContext);
     const [products, setProducts] = useState(categoriesMap[category]);

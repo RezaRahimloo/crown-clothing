@@ -52,13 +52,11 @@ export const db = getFirestore(); //singleton instance
 export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
-  console.log(objectsToAdd)
   objectsToAdd.forEach((object) => {
     const docRef = doc(collectionRef, object.title.toLowerCase());
     batch.set(docRef, object);
   });
   await batch.commit();
-  console.log("Done");
 }
 
 export const getCategoriesAndDocuments = async () => {
@@ -83,11 +81,10 @@ export const createUserDocumentFromAuth = async (
   }
 
   const userDocRef = doc(db, "users", userAuth.uid);//the database, the collection, the id of the row
-  console.log(userDocRef);
+
 
   const userSnapShot = await getDoc(userDocRef);
-  console.log(userSnapShot);
-  console.log(userSnapShot.exists());
+
 
   if(!userSnapShot.exists()){
     const { displayName, email } = userAuth;
