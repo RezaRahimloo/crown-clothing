@@ -10,9 +10,8 @@ import { useDispatch } from 'react-redux';
 const Shop = () =>{
     const dispatch = useDispatch();
     useEffect(() => {
-        const getCategories = async () => {
-            const categories = await getCategoriesAndDocuments();
-            console.log(categories);
+        const getCategories =  () => {
+            const categories =  getCategoriesAndDocuments();
             dispatch(setCategories(categories));
         }
         getCategories();

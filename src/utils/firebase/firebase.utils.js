@@ -22,7 +22,9 @@ import {
   writeBatch,
   query,
   getDocs
-} from 'firebase/firestore'
+} from 'firebase/firestore';
+
+import SHOP_DATA from "../../shop-data";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -59,11 +61,14 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
   await batch.commit();
 }
 
-export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, "categories");
-  const q = query(collectionRef);
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(docSnapshot => docSnapshot.data())
+export const getCategoriesAndDocuments =  () => {
+  return SHOP_DATA;
+  // const collectionRef = collection(db, "categories");
+  // const q = query(collectionRef);
+  // const querySnapshot = await getDocs(q);
+  // return querySnapshot.docs.map(docSnapshot => docSnapshot.data())
+
+
   // const categoryMap = querySnapshot.docs.reduce((accumilator, docSnapshot) => {
   //   const { title, items } = docSnapshot.data();
   //   accumilator[title.toLowerCase()] = items;
